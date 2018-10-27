@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="node_modules/britecharts/dist/css/common/common.css">
+  <link href="node_modules/britecharts/dist/css/charts/line.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/britecharts@2/dist/bundled/britecharts.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/britecharts/dist/css/britecharts.min.css" type="text/css" />
+  <title></title>
+</head>
+<body>
+    <h1>Using color schema examples</h1>
+    <div class="js-donut-container">
+    </div>
+    <div class="js-legend-container">
+    </div>
+    <div class="js-donut-container-not-default">
+    </div>
+    <div class="js-legend-container-not-default">
+    </div>
+    <script type="text/javascript">
+        /*
+        There are two ways to use color schema in britecharts
+         */
+        const data = [
+        {
+            quantity: 1,
+            percentage: 50,
+            name: 'glittering',
+            id: 1
+        },
+        {
+            quantity: 1,
+            percentage: 50,
+            name: 'luminous',
+            id: 2
+        }
+        ]
+        /*
+        The first one is use the default color schema
+        that has the next options
+        availableColorPalettes = [
+            britecharts,
+            grey,
+            orange,
+            blueGreen,
+            teal,
+            green,
+            yellow,
+            pink,
+            purple,
+            red,
+            aloeGreen,
+        ]
+         */
+        let colors = britecharts.colors.colorSchemas
+        let legendChart = britecharts.legend()
+        let donutChart = britecharts.donut()
+
+        donutChart
+        .isAnimated(true)
+        .width(400)
+        .colorSchema(colors.orange)
+        .height(400)
+        .on('customMouseOver', function(data) {
+            legendChart.highlight(data.data.id);
+        })
+        .on('customMouseOut', function() {
+            legendChart.clearHighlight();
+        });
+        legendChart.colorSchema(colors.orange)
+        d3.select('.js-donut-container').datum(data).call(donutChart);
+        d3.select('.js-legend-container').datum(data).call(legendChart);
+
+        /*
+        The second one is create a color schema inside an array
+        and pass it as a parameter
+         */
+        
+        let BrBG = ["#a6611a","#dfc27d"];
+        let donutChartNotDefault = britecharts.donut()
+        let legendNotDefault = britecharts.legend()
+        donutChartNotDefault
+        .isAnimated(true)
+        .width(400)
+        .colorSchema(BrBG)
+        .height(400)
+        .on('customMouseOver', function(data) {
+            legendNotDefault.highlight(data.data.id);
+        })
+        .on('customMouseOut', function() {
+            legendNotDefault.clearHighlight();
+        });
+        legendNotDefault.colorSchema(BrBG)
+        d3.select('.js-donut-container-not-default').datum(data).call(donutChartNotDefault);
+        d3.select('.js-legend-container-not-default').datum(data).call(legendNotDefault);
+    </script>
+</body>
+</html>

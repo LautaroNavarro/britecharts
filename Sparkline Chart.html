@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="node_modules/britecharts/dist/css/common/common.css">
+  <link href="node_modules/britecharts/dist/css/charts/line.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.4/d3.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/britecharts@2/dist/bundled/britecharts.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/britecharts/dist/css/britecharts.min.css" type="text/css" />
+  <title></title>
+</head>
+<body>
+    <h1>Sparkline Chart example</h1>
+    <div class="js-sparkline-chart-container card--chart"></div>
+    <script type="text/javascript">
+let sparklineData = {
+  data: [
+    {name: "Direct", value: 2, dateUTC: "2011-01-05T00:00:00Z"},
+    {name: "Direct", value: 5, dateUTC: "2011-01-06T00:00:00Z"},
+    {name: "Direct", value: 16, dateUTC: "2011-01-07T00:00:00Z"},
+    {name: "Direct", value: 23, dateUTC: "2011-01-08T00:00:00Z"},
+    {name: "Direct", value: 18, dateUTC: "2011-01-09T00:00:00Z"},
+    {name: "Direct", value: 25, dateUTC: "2011-01-10T00:00:00Z"},
+    {name: "Direct", value: 28, dateUTC: "2011-01-11T00:00:00Z"},
+    {name: "Direct", value: 2, dateUTC: "2011-01-12T00:00:00Z"}
+  ]
+};
+function createSparklineChart() {
+  let sparklineChart = britecharts.sparkline(),
+      dataset = sparklineData.data,
+      container = d3.select('.js-sparkline-chart-container'),
+      containerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
+
+  sparklineChart
+    .dateLabel('dateUTC')
+    .isAnimated(true)
+    .duration(1000)
+    .height(containerWidth / 10)
+    .width(containerWidth / 3);
+
+  container.datum(dataset)
+    .call(sparklineChart);
+
+}
+
+createSparklineChart()
+    </script>
+</body>
+</html>
